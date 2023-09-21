@@ -3,7 +3,8 @@ import api from '@/services/api';
 
 import { loadSucces, loadFailure } from './actions';
 
-export function* load(): Generator<any, void, any> {
+export function* load() {
+  // export function* load(): Generator<any, void, any> {
   try {
     const response = yield call(api.get, '/products');
 
