@@ -6,12 +6,15 @@ import rootReducer from './ducks/rootReducer';
 import rootSaga from './ducks/rootSaga';
 
 export interface ApplicationState {
-  repositories: RepositoriesState
-};
+  repositories: RepositoriesState;
+}
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store: Store<ApplicationState> = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+const store: Store<ApplicationState> = createStore(
+  rootReducer,
+  applyMiddleware(sagaMiddleware),
+);
 
 sagaMiddleware.run(rootSaga);
 

@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* No seu arquivo CSS personalizado ou no arquivo de estilo do Tailwind */
+.custom-height {
+  height: 120px; /* Defina a altura desejada aqui */
+}

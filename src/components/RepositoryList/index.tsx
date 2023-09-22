@@ -1,40 +1,39 @@
-import { Component } from "react";
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
-import { ApplicationState } from "@/store";
-import { Repository } from "@/store/ducks/repositories/types";
-import * as RepositoriesActions from "@/store/ducks/repositories/actions";
-import RepositoryItem from "../RepositoryItem";
+import { ApplicationState } from '@/store';
+import { Repository } from '@/store/ducks/repositories/types';
+import * as RepositoriesActions from '@/store/ducks/repositories/actions';
+import RepositoryItem from '../RepositoryItem';
 // import TenisCard from "../TenisCard";
 
 interface StateProps {
-  repositories: Repository[]
+  repositories: Repository[];
 }
 
 interface DispatcheProps {
-  loadRequest(): void
+  loadRequest(): void;
 }
 
-type Props = StateProps & DispatcheProps
+type Props = StateProps & DispatcheProps;
 
 class RepositoryList extends Component<Props> {
   componentDidMount() {
     const { loadRequest } = this.props;
-    loadRequest()
+    loadRequest();
   }
 
   render() {
     const { repositories } = this.props;
 
     return (
-      <div className="grid place-items-center mt-20 w-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-         {repositories.map(repository => (
-           <RepositoryItem key={repository.id} repository={repository}/>
-           
-           ))}
-           </div>
-    )
+      <div className="mt-20 grid w-full place-items-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {repositories.map((repository) => (
+          <RepositoryItem key={repository.id} repository={repository} />
+        ))}
+      </div>
+    );
   }
 }
 
@@ -43,6 +42,6 @@ const mapStateToProps = (state: ApplicationState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-bindActionCreators(RepositoriesActions, dispatch)
+  bindActionCreators(RepositoriesActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(RepositoryList);
