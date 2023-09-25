@@ -6,32 +6,38 @@ import { ApplicationState } from '@/store';
 import { Repository } from '@/store/ducks/repositories/types';
 import * as RepositoriesActions from '@/store/ducks/repositories/actions';
 import RepositoryItem from '../RepositoryItem';
-// import TenisCard from "../TenisCard";
+import Loading from '../Loading'; // Importe seu componente de animação de carregamento
 
 interface StateProps {
   repositories: Repository[];
+  loading: boolean;
 }
 
-interface DispatcheProps {
-  loadRequest(): void;
+interface DispatchProps {
+  loadRequest(category: string): void;
 }
 
-type Props = StateProps & DispatcheProps;
+type Props = StateProps & DispatchProps;
 
 class RepositoryList extends Component<Props> {
   componentDidMount() {
     const { loadRequest } = this.props;
-    loadRequest();
+    const category = '';
+    loadRequest(category);
   }
 
   render() {
-    const { repositories } = this.props;
+    const { repositories, loading } = this.props;
 
     return (
       <div className="mt-20 grid w-full place-items-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {repositories.map((repository) => (
-          <RepositoryItem key={repository.id} repository={repository} />
-        ))}
+        {loading ? (
+          <Loading /> // Renderize o componente Loading enquanto loading for true
+        ) : (
+          repositories.map((repository) => (
+            <RepositoryItem key={repository.id} repository={repository} />
+          ))
+        )}
       </div>
     );
   }
@@ -39,6 +45,7 @@ class RepositoryList extends Component<Props> {
 
 const mapStateToProps = (state: ApplicationState) => ({
   repositories: state.repositories.data,
+  loading: state.repositories.loading,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

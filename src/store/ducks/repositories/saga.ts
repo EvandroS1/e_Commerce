@@ -1,63 +1,19 @@
 import { call, put } from 'redux-saga/effects';
 import api from '@/services/api';
-
-import { loadSucces, loadFailure } from './actions';
+import { ActionType } from 'typesafe-actions';
+import { loadSucces, loadFailure, loadRequest } from './actions';
 
 // export function* load() {
-export function* load(): Generator<any, void, any> {
+  // No arquivo saga.ts
+export function* load(action: ActionType<typeof loadRequest>): Generator<any, void, any> {
   try {
-    const response = yield call(api.get, 'products');
+    const category = action.payload;
+    const response = yield call(api.get, `products${category}`);
 
     yield put(loadSucces(response.data));
+    console.log(response.data);
 
-    console.log('resp', response.data);
-  } catch (error) {
-    yield put(loadFailure());
-  }
-}
-export function* loadMensClothing(): Generator<any, void, any> {
-  try {
-    const response = yield call(api.get, 'products/category/mensclothing');
-
-    yield put(loadSucces(response.data));
-
-    console.log("Dados da categoria 'men's clothing':", response.data);
-  } catch (error) {
-    yield put(loadFailure());
-  }
-}
-
-export function* loadWomensClothing(): Generator<any, void, any> {
-  try {
-    const response = yield call(api.get, 'products/category/womensclothing');
-
-    yield put(loadSucces(response.data));
-
-    console.log("Dados da categoria 'women's clothing':", response.data);
-  } catch (error) {
-    yield put(loadFailure());
-  }
-}
-
-export function* loadJewelery(): Generator<any, void, any> {
-  try {
-    const response = yield call(api.get, '/products/category/jewelery');
-
-    yield put(loadSucces(response.data));
-
-    console.log('Dados da categoria "jewelery":', response.data);
-  } catch (error) {
-    yield put(loadFailure());
-  }
-}
-
-export function* loadElectronics(): Generator<any, void, any> {
-  try {
-    const response = yield call(api.get, 'products/category/electronics');
-
-    yield put(loadSucces(response.data));
-
-    console.log('Dados da categoria "electronics":', response.data);
+    console.log('Produtos da categoria', category);
   } catch (error) {
     yield put(loadFailure());
   }

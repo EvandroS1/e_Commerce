@@ -1,35 +1,20 @@
 import { useDispatch } from 'react-redux';
 
-import {
-  loadRequestMensClothing,
-  loadRequestWomensClothing,
-  loadRequestJewelery,
-  loadRequestElectronics,
-  loadRequest,
-} from '../store/ducks/repositories/actions'; // Importe as ações correspondentes
+import { loadRequest } from '../store/ducks/repositories/actions'; // Importe as ações correspondentes
+import { useEffect, useState } from 'react';
 
 const Filters = () => {
   const dispatch = useDispatch();
 
-  const handleButtonClickAll = () => {
-    dispatch(loadRequest());
-  };
-  const handleButtonClickMensClothing = () => {
-    dispatch(loadRequestMensClothing());
-  };
+  const [category, setCategory] = useState('');
 
-  const handleButtonClickWomensClothing = () => {
-    dispatch(loadRequestWomensClothing());
-  };
-
-  const handleButtonClickJewelery = () => {
-    dispatch(loadRequestJewelery());
-    console.log('foi');
-  };
-
-  const handleButtonClickElectronics = () => {
-    dispatch(loadRequestElectronics());
-  };
+  useEffect(() => {
+    console.log('log', category);
+    setCategory
+    dispatch(loadRequest(category));
+    
+    
+  }, [category])
   return (
     <ul className=" menu rounded-box relative z-10 bg-base-200 lg:menu-horizontal">
       <li>
@@ -37,25 +22,25 @@ const Filters = () => {
           <summary>Categorias</summary>
           <ul>
             <li>
-              <a onClick={handleButtonClickAll}>All</a>
+              <a onClick={() => setCategory('')}>All</a>
             </li>
             <li>
-              <a onClick={handleButtonClickMensClothing}>Men's Clothing</a>
+              <a onClick={() => setCategory('/category/men%27s%20clothing')}>Men's Clothing</a>
             </li>
             <li>
-              <a onClick={handleButtonClickWomensClothing}>Women's Clothing</a>
+              <a onClick={() => setCategory('/category/women%27s%20clothing')}>Women's Clothing</a>
             </li>
             <li>
-              <a onClick={handleButtonClickJewelery}>Jewelery</a>
+              <a onClick={() => setCategory('/category/jewelery')}>Jewelery</a>
             </li>
             <li>
-              <a onClick={handleButtonClickElectronics}>Electronics</a>
+              <a onClick={() => setCategory('/category/electronics')}>Electronics</a>
             </li>
           </ul>
         </details>
       </li>
     </ul>
-  );
-};
+  )
+}
 
 export default Filters;

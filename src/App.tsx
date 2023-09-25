@@ -17,7 +17,6 @@ const App = () => {
         <Filters />
         <RepositoryList />
       </Provider>
-      ;
     </div>
   );
 };
