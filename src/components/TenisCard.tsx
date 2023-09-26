@@ -17,7 +17,7 @@ const TenisCardd: React.FC<Props> = ({ repository }) => {
         <figure className="w-a98 h-72 bg-white">
           <img src={repository.image} className="object-contain" alt="Shoes" />
         </figure>
-        <div className="card-body">
+        <div className="card-body bg-black rounded-b-2xl">
           <h2 className="card-title text-xs">
             {repository.title}
             <div className="badge badge-secondary">NEW</div>
